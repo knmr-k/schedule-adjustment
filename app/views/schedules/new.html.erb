@@ -1,0 +1,73 @@
+<center>
+
+<%= link_to 'Back', root_path %>
+<br><br><br>
+
+
+
+<% 7.times do |num| %>
+
+<%= @date.beginning_of_week + num %>
+
+<%= form_with model: @plan, url: schedules_path, local: true do |f| %>
+
+<% if @plans.select{|i| i.date == @date.beginning_of_week + num} == [] %>
+  <%= f.hidden_field :date, :value => (@date.beginning_of_week + num) %>
+  [true
+  <%= f.radio_button :plan, :true %>
+  ][false
+  <%= f.radio_button :plan, :false %>
+  ]
+  <%= f.submit "登録" ,class:"" %>
+<% else %>
+
+<% if @plans.select{|i| i.date == @date.beginning_of_week + num}[0].plan == true %>
+true
+<% else %>
+false
+<% end %>
+で登録済みです
+
+<% end %>
+
+<% end %>
+
+<br>
+
+<% end %>
+
+<hr>
+
+<% 7.times do |num| %>
+
+<%= @date.beginning_of_week + num + 7 %>
+
+<%= form_with model: @plan, url: schedules_path, local: true do |f| %>
+
+<% if @plans.select{|i| i.date == @date.beginning_of_week + num + 7} == [] %>
+  <%= f.hidden_field :date, :value => (@date.beginning_of_week + num + 7) %>
+  [true
+  <%= f.radio_button :plan, :true %>
+  ][false
+  <%= f.radio_button :plan, :false %>
+  ]
+  <%= f.submit "登録" ,class:"" %>
+<% else %>
+
+<% if @plans.select{|i| i.date == @date.beginning_of_week + num + 7}[0].plan == true %>
+true
+<% else %>
+false
+<% end %>
+で登録済みです
+
+<% end %>
+
+<% end %>
+
+<br>
+
+<% end %>
+
+
+</center>
