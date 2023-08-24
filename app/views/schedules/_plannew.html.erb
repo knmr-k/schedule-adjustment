@@ -1,0 +1,57 @@
+<style>
+table{
+  border-collapse: collapse;
+}
+td{
+  width: 80px;
+  height: 30px;
+  border:1px #333 solid;
+  padding: 10px;
+  text-align: center;
+}
+</style>
+
+<table>
+  <tr>
+    <td>Date</td>
+    <td>◯</td>
+    <td>☓</td>
+    <td></td>
+  </tr>
+  <% 7.times do |num| %>
+    <tr>
+      <td>
+        <%= (@date.beginning_of_week + num + week).strftime("%m/%d") %>
+        <%= "(#{week_jp(num)})" %>
+      </td>
+
+      <% if @plans.select{|i| i.date == @date.beginning_of_week + num + week} == [] %>
+
+        <%= form_with model: @plan, url: schedules_path, data: { turbo: false }, local: true do |f| %>
+        <%= f.hidden_field :date, :value => (@date.beginning_of_week + num + week) %>
+        <td>
+          <label><div><%= f.radio_button :plan, :true %></div></label>
+        </td>
+        <td>
+          <label><div><%= f.radio_button :plan, :false %></div></label>
+        </td>
+        <td>
+          <%= f.submit "登録" %>
+        </td>
+        <% end %>
+
+      <% else %>
+        <td colspan="2">
+          <% if @plans.select{|i| i.date == @date.beginning_of_week + num + week}[0].plan == true %>
+            ◯
+          <% else %>
+            ☓
+          <% end %>
+        </td>
+        <td>
+          登録済み
+        </td>
+      <% end %>
+    </tr>
+  <% end %>
+</table>

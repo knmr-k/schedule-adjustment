@@ -1,0 +1,64 @@
+<style>
+.list-1{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  list-style-type: none;
+  margin: 0px;
+}
+.list-2{
+  width: 100px;
+  border: 1px solid;
+  border-left: none;
+}
+.list-2-start{
+  width: 150px;
+  border: 1px solid;
+  border-left: 1px solid;
+}
+.plan-ok, .plan-no, .plan-que, .plan-blank, .plan-header, .plan-name, .plan-result{
+  padding: 10px;
+}
+.plan-ok, .plan-no, .plan-que{
+  /* font-size: 13px; */
+}
+.plan-ok{
+  background-color: #d1ffff;
+}
+.plan-no{
+  background-color: #ffc1c1;
+}
+.plan-que{
+  background-color: #a8ffa8;
+}
+</style>
+
+<ul class="list-1">
+  <li class="list-2-start"><div class="plan-name">name</div></li>
+  <% 7.times do |num| %>
+    <li class="list-2">
+      <div class="plan-header">
+        <%= "#{(@date.beginning_of_week + num + week).strftime("%m/%d")}(#{week_jp(num)})" %>
+      </div>
+    </li>
+  <% end %>
+</ul>
+
+<% @user_list.each do |user| %>
+  <ul class="list-1">
+    <li class="list-2-start"><div class="plan-name"><%= user.name %>#<%= user.id %></div></li>
+    <% 7.times do |num| %>
+      <li class="list-2"><%= plan_check(num + week, user) %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+
+<ul class="list-1">
+  <li class="list-2-start"><div class="plan-result">result</div></li>
+  <% 7.times do |num| %>
+    <li class="list-2">
+      <%= plan_result(num + week) %>
+    </li>
+  <% end %>
+</ul>

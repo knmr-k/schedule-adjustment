@@ -1,8 +1,9 @@
 <center>
-<h1>schedule-adjustment test</h1>
-username : 
+<h1>日程調整アプリ</h1>
+<h3>schedule-adjustment</h3>
 <% if user_signed_in? %>
-<%= current_user.name %>
+username : 
+<%= current_user.name %>#<%= current_user.id %>
 <% else %>
 no user
 <% end %>
@@ -14,15 +15,14 @@ no user
 <% if user_signed_in? %>
 <s>login</s>
 <% else %>
-<%= link_to 'login', new_user_session_path %>
+<%= link_to 'log-in', new_user_session_path %>
 <% end %>
 <br>
 <% if user_signed_in? %>
-<%= link_to 'logout', destroy_user_session_path, data: { turbo_method: :delete } %>
+<%= link_to 'log-out', destroy_user_session_path, data: { turbo_method: :delete } %>
 <% else %>
 <s>logout</s>
 <% end %>
-<br>
 <br>
 <% if user_signed_in? %>
 <s>sign-up</s>
@@ -30,99 +30,19 @@ no user
 <%= link_to 'sign-up', new_user_registration_path %>
 <% end %>
 <br>
-<hr>
 <br>
 <% if user_signed_in? %>
-<%= link_to 'post', new_schedule_path %>
+<%= link_to 'post', new_schedule_path, data: { turbo: false } %>
 <% else %>
 <s>post</s>
 <% end %>
 
-<br><br>
+<hr>
 
-<style>
-.list-1{
-  /* background-color: #eee; */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  list-style-type: none;
-  margin: 0px;
-}
-.list-2{
-  /* background-color: #eee000; */
-  width: 70px;
-  padding:  10px;
-  border: 1px solid;
-  border-left: none;
-}
-.list-2-start{
-  /* background-color: #eee000; */
-  width: 150px;
-  padding:  10px;
-  border: 1px solid;
-  border-left: 1px solid;
-}
-</style>
-
-<ul class="list-1">
-  <li class="list-2-start">name</li>
-  <% 7.times do |num| %>
-    <li class="list-2">
-      <%= (@date.beginning_of_week + num).strftime("%m/%d") %>
-    </li>
-  <% end %>
-</ul>
-
-<% @user_list.each do |user| %>
-  <ul class="list-1">
-    <li class="list-2-start"><%= user.name %></li>
-    <% 7.times do |num| %>
-      <li class="list-2"><%= plan_check(num, user) %></li>
-    <% end %>
-  </ul>
-<% end %>
-
-
-<ul class="list-1">
-  <li class="list-2-start">result</li>
-  <% 7.times do |num| %>
-    <li class="list-2">
-      <%= plan_result(num) %>
-    </li>
-  <% end %>
-</ul>
+<%= render partial: 'planshow', locals: {week: 0} %>
 
 <br><br>
 
-<ul class="list-1">
-  <li class="list-2-start">name</li>
-  <% 7.times do |num| %>
-    <li class="list-2">
-      <%= (@date.beginning_of_week + num + 7).strftime("%m/%d") %>
-    </li>
-  <% end %>
-</ul>
-
-<% @user_list.each do |user| %>
-  <ul class="list-1">
-    <li class="list-2-start"><%= user.name %></li>
-    <% 7.times do |num| %>
-      <li class="list-2"><%= plan_check(num + 7, user) %></li>
-    <% end %>
-  </ul>
-<% end %>
-
-
-<ul class="list-1">
-  <li class="list-2-start">result</li>
-  <% 7.times do |num| %>
-    <li class="list-2">
-      <%= plan_result(num + 7) %>
-    </li>
-  <% end %>
-</ul>
-
-
+<%= render partial: 'planshow', locals: {week: 7} %>
 
 </center>

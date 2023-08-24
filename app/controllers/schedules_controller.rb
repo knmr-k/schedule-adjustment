@@ -1,4 +1,6 @@
 class SchedulesController < ApplicationController
+  before_action :authenticate_user!, except: [:index]
+
   def index
     @date = Date.today
     @user_list = User.all
@@ -11,12 +13,8 @@ class SchedulesController < ApplicationController
   end
 
   def create
-    @plan = Plan.new(plan_params)
-    if @plan.save
-      redirect_to new_schedule_path
-    else
-      render :new, status: :unprocessable_entity
-    end
+    @plan = Plan.create(plan_params)
+    redirect_to new_schedule_path
   end
 
   private

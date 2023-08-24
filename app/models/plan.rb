@@ -1,7 +1,6 @@
 class Plan < ApplicationRecord
   belongs_to :user
 
-  def test(i)
-    
-  end
+  validates :date, presence: true
+  validates :plan, inclusion: {in: [true, false]}
 end
