@@ -3,7 +3,14 @@
 
 # アプリケーション概要
 日程調整をWebアプリ上で行える。
+
 また、日程調整の際に起こる問題の解決を図る。
+
+内部の状態
+![1](https://github.com/knmr-k/schedule-adjustment/assets/138575232/7010ffdf-3cfc-4a6f-b283-877d4bfb9331)
+
+実際の表示
+![2](https://github.com/knmr-k/schedule-adjustment/assets/138575232/9d005464-980f-4e89-a541-62b619196cf4)
 
 # URL
 https://schedule-adjustment.onrender.com/
